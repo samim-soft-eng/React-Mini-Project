@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import './App.css'
 
 function App() {
   const [hour, sethour] = useState(0)
@@ -30,9 +31,6 @@ function App() {
       setmin(59)
       setsec(59)
     }
-
-
-
   }
 
   const handleStart = () => {
@@ -57,9 +55,9 @@ function App() {
     clearInterval(nowTime)
   }
 
-  const handleResume = () =>{
+  const handleResume = () => {
     setChangePause(false)
-    setInterval(runtimer(hour,min,sec))
+    setInterval(runtimer(hour, min, sec))
   }
 
   useEffect(() => {
@@ -89,45 +87,62 @@ function App() {
   }, [state, change, hour, min, sec])
 
   return (
-    <div>
-      <div>
-        <h1>CountDown Timer</h1>
-        <br />
+    <main className="timer-page">
+      <div className="timer-orbit timer-orbit-one" aria-hidden="true" />
+      <div className="timer-orbit timer-orbit-two" aria-hidden="true" />
+      <section className="timer-card">
+        <header className="timer-header">
+          <span className="timer-kicker">TIME MACHINE // 001</span>
+          <h1>CountDown <span>Timer</span></h1>
+          <p className="timer-subtitle">Make every second count.</p>
+        </header>
         {
           !state ?
-            <div onChange={handlevalue}>
-              <input id='hour' type="text" placeholder='HH' />
-              <input id='min' type="text" placeholder='MM' />
-              <input id='sec' type="text" placeholder='SS' />
+            <div className="timer-inputs" onChange={handlevalue}>
+              <label className="timer-input-wrap">
+                <input id='hour' type="text" placeholder='HH' />
+                <span>HOURS</span>
+              </label>
+              <span className="input-separator">:</span>
+              <label className="timer-input-wrap">
+                <input id='min' type="text" placeholder='MM' />
+                <span>MINUTES</span>
+              </label>
+              <span className="input-separator">:</span>
+              <label className="timer-input-wrap">
+                <input id='sec' type="text" placeholder='SS' />
+                <span>SECONDS</span>
+              </label>
             </div>
             :
-            <div>
-              <div>{hour < 10 ? `0${hour}` : hour}</div> <span>:</span>
-              <div>{min < 10 ? `0${min} ` : min}</div> <span>:</span>
-              <div>{sec < 10 ? `0${sec}` : sec}</div>
+            <div className="timer-display">
+              <div className="timer-digit">{hour < 10 ? `0${hour}` : hour}</div>
+              <span className="timer-colon">:</span>
+              <div className="timer-digit">{min < 10 ? `0${min} ` : min}</div>
+              <span className="timer-colon">:</span>
+              <div className="timer-digit">{sec < 10 ? `0${sec}` : sec}</div>
             </div>
         }
-      </div>
-      <div>
-        {
-          !change ? <button onClick={handleStart}>Start</button> :
-            <div>
-              <div>
-                {
-                  !changePause ?
-                    <button onClick={handlepause}>Pause</button>
-                    :
-                    <button onClick={handleResume}>Resume</button>
-                }
+        <div className="timer-controls">
+          {
+            !change ? <button className="timer-button timer-button-start" onClick={handleStart}><span>▶</span> Start</button> :
+              <div className="timer-active-controls">
+                <div className="timer-pause-wrap">
+                  {
+                    !changePause ?
+                      <button className="timer-button timer-button-pause" onClick={handlepause}><span>Ⅱ</span> Pause</button>
+                      :
+                      <button className="timer-button timer-button-resume" onClick={handleResume}><span>▶</span> Resume</button>
+                  }
+                </div>
+                <button className="timer-button timer-button-reset" onClick={handlereset}><span>↺</span> Reset</button>
               </div>
-              <button onClick={handlereset}>Reset</button>
-            </div>
 
-        }
-
-      </div>
-
-    </div>
+          }
+        </div>
+        <footer className="timer-footer"><span className="status-light" /> READY WHEN YOU ARE</footer>
+      </section>
+    </main>
   )
 }
 
