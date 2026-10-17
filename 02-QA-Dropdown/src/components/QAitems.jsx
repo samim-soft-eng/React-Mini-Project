@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 
-function QAitems({ idx, q }) {
+function QAitems({ idx, q,activeIndex,setActiveIndex }) {
     const [show, setshow] = useState(false)
 
-    // useEffect(() => {
-    //     if (idx == 0) {
-    //         setshow(true)
-    //     }
-        
-    // }, [])
+    useEffect(() => {
+
+        setshow(activeIndex == idx);
+
+    }, [activeIndex, idx]);
+
     const handleshow = () => {
-        setshow(show ? false : true )
-    }
+        setActiveIndex(activeIndex == idx ? null : idx);
+    };
+
     return (
         <div>
             <div onClick={handleshow}>
