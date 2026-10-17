@@ -1,11 +1,12 @@
 import React from 'react'
 import FatchApi from './components/FatchApi'
+import './App.css'
 
 function App() {
   return (
-    <div>
+    <main className="qa-app">
       <FatchApi />
-    </div>
+    </main>
   )
 }
 

@@ -15,14 +15,25 @@ function QAitems({ idx, q,activeIndex,setActiveIndex }) {
     };
 
     return (
-        <div>
-            <div onClick={handleshow}>
-                <button > . </button>
-                <h2>{idx + 1}. {q.question}</h2>
-                {show && <h3>Ans. {q.correct_answer}</h3>}
-            </div>
-
-        </div>
+        <article className={`qa-item${show ? ' qa-item-open' : ''}`}>
+            <button
+                className="qa-question"
+                type="button"
+                onClick={handleshow}
+                aria-expanded={show}
+                aria-controls={`qa-answer-${idx}`}
+            >
+                <span className="qa-arrow" aria-hidden="true">&gt;</span>
+                <span className="qa-number">{String(idx + 1).padStart(2, '0')}</span>
+                <span className="qa-question-text">{q.question}</span>
+            </button>
+            {show && (
+                <div className="qa-answer" id={`qa-answer-${idx}`}>
+                    <span className="qa-answer-label">ANSWER</span>
+                    <h3>{q.correct_answer}</h3>
+                </div>
+            )}
+        </article>
     )
 }
 

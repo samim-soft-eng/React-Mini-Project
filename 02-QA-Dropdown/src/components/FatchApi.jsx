@@ -20,8 +20,13 @@ function FatchApi() {
         getApi()
     }, [])
     return (
-        <div>
-            <h1>All Question And Answer</h1>
+        <section className="qa-shell">
+            <header className="qa-heading">
+                <span className="qa-eyebrow">THE QUICK-FIRE QUIZ</span>
+                <h1>Curious <span>minds</span><br />start here<span className="qa-heading-mark">.</span></h1>
+                <p>Pick a question. Reveal what you know.</p>
+            </header>
+            <div className="qa-list">
             {
                 questions.map((q, idx) => (
                     <QAitems key={idx} idx={idx} q={q} 
@@ -30,7 +35,9 @@ function FatchApi() {
 
                 ))
             }
-        </div>
+            </div>
+            <footer className="qa-footer"><span /> ONE QUESTION AT A TIME <span /></footer>
+        </section>
     )
 }
 
