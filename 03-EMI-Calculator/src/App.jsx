@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
+import './App.css';
 
 function App() {
   const [amount, setamount] = useState(0);
@@ -42,26 +43,52 @@ function App() {
   }, [amount, rate, tune, unit]);
 
   return (
-    <div>
-      <h2>EMI Calculator</h2>
+    <main className="emi-page">
+      <section className="emi-card">
+        <header className="emi-header">
+          <span className="emi-eyebrow">SMART MONEY TOOL</span>
+          <h1>EMI <span>Calculator</span></h1>
+          <p>Plan your next big move with confidence.</p>
+        </header>
 
-      <div onChange={handlechange}>
-        <p>Loan Amount:</p>
-        <input id="A" type="number" placeholder="Enter loan amount" />
+        <div className="emi-fields" onChange={handlechange}>
+          <div className="emi-field">
+            <p>Loan Amount</p>
+            <div className="emi-input-wrap">
+              <span className="emi-prefix">₹</span>
+              <input id="A" type="number" placeholder="Enter loan amount" />
+            </div>
+          </div>
 
-        <p>Interest Rate (% per year):</p>
-        <input id="R" type="number" placeholder="Enter interest rate" />
+          <div className="emi-field">
+            <p>Interest Rate <span>(% per year)</span></p>
+            <div className="emi-input-wrap">
+              <input id="R" type="number" placeholder="Enter interest rate" />
+              <span className="emi-suffix">%</span>
+            </div>
+          </div>
 
-        <p>Duration ({unit})</p>
-        <input id="T" type="number" placeholder={`Enter ${unit.toLowerCase()}s`} />
+          <div className="emi-field">
+            <p>Duration <span>({unit})</span></p>
+            <div className="emi-input-wrap">
+              <input id="T" type="number" placeholder={`Enter ${unit.toLowerCase()}s`} />
+              <span className="emi-suffix">⌄</span>
+            </div>
+          </div>
 
-        <button type="button" onClick={() => setunit(unit === 'Year' ? 'Month' : 'Year') }>
-          Change to {unit === 'Year' ? 'Months' : 'Years'}
-        </button>
-      </div>
+          <button className="emi-unit-button" type="button" onClick={() => setunit(unit === 'Year' ? 'Month' : 'Year') }>
+            Change to {unit === 'Year' ? 'Months' : 'Years'} <span aria-hidden="true">↗</span>
+          </button>
+        </div>
 
-      <h3>Monthly EMI: ₹{emi.toLocaleString('en-IN')}</h3>
-    </div>
+        <div className="emi-result">
+          <span className="emi-result-label">YOUR MONTHLY EMI</span>
+          <h2>₹{emi.toLocaleString('en-IN')}</h2>
+          <span className="emi-result-note">Estimated monthly payment</span>
+        </div>
+        <footer className="emi-footer"><span /> SMALL STEPS. BIG PLANS. <span /></footer>
+      </section>
+    </main>
   );
 }
 
