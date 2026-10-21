@@ -12,7 +12,9 @@ function Popup() {
     }
     const handleoutside = (e) =>{
         console.log(e.target.className)
-        handleclear()
+        if(e.target.className === "outerbox"){
+            handleclear()
+        }
     }
     const handleAccept = () => {
         setAcceptOffer(true)
