@@ -10,6 +10,10 @@ function Popup() {
     const handleclear = () => {
         setShowOffer(false)
     }
+    const handleoutside = (e) =>{
+        console.log(e.target.className)
+        handleclear()
+    }
     const handleAccept = () => {
         setAcceptOffer(true)
         setShowOffer(false)
@@ -22,7 +26,7 @@ function Popup() {
                     !acceptOffer ?
                         (!showOffer ? <button onClick={handleshow}>Show Offer</button>
                             :
-                            <div class="outerbox">
+                            <div class="outerbox" onclick={handleoutside}>
                                 <div class="showofferbox">
                                     <button onClick={handleclear} class="clear-bnt">x</button>
                                     <p>Your Offer is Here</p>
