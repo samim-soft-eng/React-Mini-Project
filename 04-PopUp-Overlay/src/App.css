@@ -1,0 +1,27 @@
+body{
+    cursor: pointer;
+    background-color: beige;
+    
+
+}
+.outerbox{
+    background: radial-gradient(white,black 50%);
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+}
+.showofferbox{
+    background-color: aqua;
+    height: 300px;
+    width: 300px;
+    display: flex;
+    
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
