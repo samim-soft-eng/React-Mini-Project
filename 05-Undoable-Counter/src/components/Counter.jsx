@@ -2,6 +2,24 @@ import React, { useState } from 'react'
 
 function Counter() {
     const [count,setcount] = useState(0)
+    const [history,sethistory] = useState([])
+
+    const maintainhistory = (key,pre,curr) => {
+        console.log(key,pre,curr)
+        const obj = {
+            action: key,pre,curr
+        }
+        const copyhistory = {...history}
+        copyhistory.unshift(obj)
+        sethistory(copyhistory)
+    }
+
+    const handleclick = (key) => {
+        const val = parseInt(key)
+        console.log(key)
+        maintainhistory(key,count,val+count)
+        setcount((existingValue) => existingValue + val)
+    }
 
 
     // My simple code Logic  
@@ -26,9 +44,35 @@ function Counter() {
 
     return (
         <div>
+            <h1>Undoable Counter</h1>
+            <div>
+                <button>Undo</button>
+                <button>Redo</button>
+            </div>
+            <div>
+                {
+                    [-100,-10,-1].map((btn) => (
+                        <button onClick={() => handleclick(btn)}>{btn}</button>
+                    ))
+                }
+            </div>
+            <h1>{count}</h1>
+            <div>
+                {
+                    ['+1','+10','+100'].map((btn) => (
+                        <button onClick={() => handleclick(btn)}>{btn}</button>
+                    ))
+                }
+            </div>
+            <div>
+                {
+                    history.map((item) => (
+                        <div>{item.action}</div>
+                    ))
+                }
+            </div>
 
 
-            
         </div>
 
 
