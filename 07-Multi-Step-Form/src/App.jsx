@@ -33,6 +33,9 @@ function App() {
   return (
     <form onSubmit={count === 2 ? handleSubmit : handleNext}>
       <h1>Multi Step Form</h1>
+      <div>
+        <button type="button" onClick={() => setCount(count - 1)} disabled={count === 0}>Back</button>
+      </div>
       <div >
         {
           count === 0 && (
