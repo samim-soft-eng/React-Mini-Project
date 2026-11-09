@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import './App.css'
 
 function App() {
   const [api, setapi] = useState([])
@@ -47,12 +48,24 @@ function App() {
   //   return <div>Loading...</div>
   // }
   return (
-    <div>
-      <button onClick={handleleft}>{"<"}</button>
+    <main className="carousel-page">
+      <section className="carousel" aria-label="Product carousel">
+        <button className="carousel-button" onClick={handleleft} aria-label="Previous product">
+          {"<"}
+        </button>
       {/* ? is needed to check if api[currentIndex] is defined before trying to access its properties. This prevents potential errors when the api array is empty or the currentIndex is out of bounds. */}
-      <img src={api[currentIndex]?.image} alt={api[currentIndex]?.title} />
-      <button onClick={handleright}>{">"}</button>
-    </div>
+        <div className="carousel-image-frame">
+          <img
+            className="carousel-image"
+            src={api[currentIndex]?.image}
+            alt={api[currentIndex]?.title}
+          />
+        </div>
+        <button className="carousel-button" onClick={handleright} aria-label="Next product">
+          {">"}
+        </button>
+      </section>
+    </main>
   )
 }
 
