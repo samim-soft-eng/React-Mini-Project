@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRef, useEffect, useState } from 'react'
+import './App.css'
 
 
 function App() {
@@ -8,6 +9,9 @@ function App() {
   // Create an array of refs for each input box
   const ref = [useRef(), useRef(), useRef(), useRef()]
   const [input, setInput] = useState(emptyInput)
+  const [submitted, setSubmitted] = useState(false)
+  const [invalidOtp, setInvalidOtp] = useState(false)
+  const [validOtp, setValidOtp] = useState(false)
   const OTP = 9800
 
 
@@ -27,12 +31,16 @@ function App() {
     const copyInput = [...input]
     copyInput[i] = value
     setInput(copyInput)
+    setInvalidOtp(false)
+    setValidOtp(false)
   }
   const handledelete = (e, i) => {
     if (e.key === 'Backspace') {
       const copyInput = [...input]
       copyInput[i] = ''
       setInput(copyInput)
+      setInvalidOtp(false)
+      setValidOtp(false)
 
       if (!input[i] && i > 0) {
         ref[i - 1].current.focus()
@@ -49,6 +57,8 @@ function App() {
     // Split the pasted data into an array of characters and set the value of each input box
     const pastvalue = data.split('')
     setInput(pastvalue)
+    setInvalidOtp(false)
+    setValidOtp(false)
     ref[input.length - 1].current.focus()
   }
 
@@ -56,13 +66,20 @@ function App() {
     const joininput = input.join('')
     console.log(joininput)
     if (joininput.length !== 4) {
-      alert('Please enter 4 digit OTP')
+      setSubmitted(true)
+      setValidOtp(false)
+      // alert('Please enter 4 digit OTP')
       return
     }
     if (joininput == OTP) {
+      setInvalidOtp(false)
+      setValidOtp(true)
       alert('OTP is Valid')
     } else {
-      alert('Invalid OTP')
+      setSubmitted(true)
+      setInvalidOtp(true)
+      setValidOtp(false)
+      // alert('Invalid OTP')
     }
 
 
@@ -70,23 +87,31 @@ function App() {
   }
 
   return (
-    <div>
-      <h1>OTP Verification</h1>
-      <div>
+    <main className="otp-page">
+      <section className="otp-card">
+        <div className="otp-icon" aria-hidden="true">✦</div>
+        <p className="otp-eyebrow">SECURITY CHECK</p>
+        <h1>OTP Verification</h1>
+        <p className="otp-description">Enter the 4-digit code to unlock your next adventure.</p>
+      <div className="otp-inputs">
         {
           emptyInput.map((item, i) => (
             <input ref={ref[i]}
+              className={`otp-input ${validOtp ? 'otp-input--success' : submitted && (!input[i] || invalidOtp) ? 'otp-input--error' : ''}`}
               value={input[i]}
               onChange={(e) => handlechange(e, i)}
               onKeyDown={(e) => handledelete(e, i)}
               onPaste={handlePaste}
-              key={i} type="text" maxLength={1} />
+              key={i} type="text" inputMode="numeric" maxLength={1}
+              aria-label={`OTP digit ${i + 1}`} />
           ))
         }
 
       </div>
-      <button onClick={handleclick}>Verify OTP</button>
-    </div>
+      <button className="otp-button" onClick={handleclick}>Verify OTP <span aria-hidden="true">→</span></button>
+      <p className="otp-footer">Your code is private and secure <span aria-hidden="true">♥</span></p>
+      </section>
+    </main>
   )
 }
 

@@ -1,0 +1,215 @@
+.otp-page {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  flex: 1;
+  place-items: center;
+  overflow: hidden;
+  min-height: 100svh;
+  padding: 32px 20px;
+  box-sizing: border-box;
+  background:
+    radial-gradient(ellipse at 15% 20%, #ff70b733 0 12%, transparent 36%),
+    radial-gradient(ellipse at 85% 78%, #38e8e033 0 14%, transparent 38%),
+    linear-gradient(135deg, #21123f, #41206b 48%, #132c5b);
+  font-family: var(--sans);
+}
+
+.otp-page::before,
+.otp-page::after {
+  position: absolute;
+  z-index: -1;
+  width: 220px;
+  height: 220px;
+  border: 1px solid #ffffff30;
+  border-radius: 42% 58% 67% 33% / 44% 34% 66% 56%;
+  content: '';
+  animation: otp-float 9s ease-in-out infinite alternate;
+}
+
+.otp-page::before {
+  top: 8%;
+  left: 8%;
+  box-shadow: 0 0 80px #ff61c866, inset 0 0 45px #ff61c822;
+}
+
+.otp-page::after {
+  right: 7%;
+  bottom: 7%;
+  width: 300px;
+  height: 300px;
+  border-color: #52f5df45;
+  animation-delay: -4s;
+}
+
+.otp-card {
+  width: min(100%, 470px);
+  padding: 42px 38px 30px;
+  border: 1px solid #ffffff38;
+  border-radius: 30px;
+  background: linear-gradient(145deg, #ffffffed, #f8edffed);
+  box-shadow: 0 28px 90px #07021c75, inset 0 1px #fff;
+  box-sizing: border-box;
+  animation: otp-appear 650ms cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.otp-icon {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 17px;
+  place-items: center;
+  border-radius: 19px;
+  background: linear-gradient(135deg, #ff4fad, #8b5cf6 55%, #27c8dc);
+  box-shadow: 0 10px 24px #a547c955;
+  color: white;
+  font-size: 30px;
+  transform: rotate(-8deg);
+}
+
+.otp-eyebrow {
+  margin: 0 0 5px;
+  color: #8853d5;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.otp-card h1 {
+  margin: 0;
+  color: #21143b;
+  font-size: clamp(30px, 7vw, 42px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.otp-description {
+  max-width: 310px;
+  margin: 12px auto 28px;
+  color: #77718a;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.otp-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.otp-input {
+  width: 62px;
+  height: 68px;
+  border: 2px solid #e6d9f7;
+  border-radius: 17px;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 5px 14px #4e247012;
+  color: #412064;
+  font: 800 29px/1 var(--sans);
+  text-align: center;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.otp-input:focus {
+  border-color: #a44ff0;
+  box-shadow: 0 0 0 4px #a44ff026, 0 8px 20px #7736bd24;
+  transform: translateY(-4px);
+}
+
+.otp-input--error,
+.otp-input--error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 4px #ef444426, 0 8px 20px #ef44441c;
+}
+
+.otp-input--success,
+.otp-input--success:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 4px #22c55e26, 0 8px 20px #22c55e1c;
+}
+
+.otp-button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border: 0;
+  border-radius: 15px;
+  background: linear-gradient(100deg, #ff4fa9, #a54df2 55%, #536bf6);
+  box-shadow: 0 10px 22px #8f47d344;
+  color: #fff;
+  cursor: pointer;
+  font: 750 16px var(--sans);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.otp-button:hover {
+  box-shadow: 0 14px 28px #8f47d366;
+  transform: translateY(-2px);
+}
+
+.otp-button:active {
+  transform: translateY(1px);
+}
+
+.otp-button span {
+  font-size: 21px;
+  line-height: 1;
+}
+
+.otp-footer {
+  margin: 22px 0 0;
+  color: #948ba4;
+  font-size: 12px;
+}
+
+.otp-footer span {
+  color: #f45b9c;
+}
+
+@keyframes otp-float {
+  to {
+    transform: translate(22px, -18px) rotate(25deg);
+  }
+}
+
+@keyframes otp-appear {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .otp-card {
+    padding: 34px 22px 26px;
+  }
+
+  .otp-inputs {
+    gap: 8px;
+  }
+
+  .otp-input {
+    width: min(17vw, 58px);
+    height: 60px;
+    border-radius: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
